@@ -45,7 +45,7 @@ export async function unzipHwpx(data: Uint8Array | ArrayBuffer): Promise<HwpxPac
   for (const ref of descendants(opf, 'itemref')) {
     const id = attr(ref, 'idref');
     const href = resolve(items.get(id) ?? '');
-    if (/header/i.test(id) || /header\.xml$/.test(href)) headerPath = href;
+    if (/header\.xml$/i.test(href)) headerPath = href;
     else if (/section\d*\.xml$/i.test(href)) sectionPaths.push(href);
   }
   if (sectionPaths.length === 0) {

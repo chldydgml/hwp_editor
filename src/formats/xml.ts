@@ -9,17 +9,33 @@ export const parseXml = (text: string): Document => {
 
 export const serializeXml = (node: Node): string => new XMLSerializer().serializeToString(node);
 
-export const elements = (el: Element): Element[] => Array.from(el.children);
+export function kids(el: Element, name: string): Element[] {
+  const out: Element[] = [];
+  for (let c = el.firstElementChild; c; c = c.nextElementSibling) if (c.localName === name) out.push(c);
+  return out;
+}
 
-export const kids = (el: Element, name: string): Element[] =>
-  Array.from(el.children).filter((c) => c.localName === name);
+export function kid(el: Element | null | undefined, name: string): Element | null {
+  if (!el) return null;
+  for (let c = el.firstElementChild; c; c = c.nextElementSibling) if (c.localName === name) return c;
+  return null;
+}
 
-export const kid = (el: Element | null | undefined, name: string): Element | null =>
-  el ? (Array.from(el.children).find((c) => c.localName === name) ?? null) : null;
-
-/** 하위 전체에서 localName 으로 찾기 */
-export const descendants = (el: Element | Document, name: string): Element[] =>
-  Array.from(el.getElementsByTagName('*')).filter((c) => c.localName === name);
+/** 하위 전체에서 localName 으로 찾기 (문서 순서) */
+export function descendants(el: Element | Document, name: string): Element[] {
+  const out: Element[] = [];
+  const root = el instanceof Element ? el : el.documentElement;
+  if (!root) return out;
+  const stack: Element[] = [];
+  for (let c = root.lastElementChild; c; c = c.previousElementSibling) stack.push(c);
+  if (el !== root && root.localName === name) out.push(root);
+  while (stack.length) {
+    const n = stack.pop()!;
+    if (n.localName === name) out.push(n);
+    for (let c = n.lastElementChild; c; c = c.previousElementSibling) stack.push(c);
+  }
+  return out;
+}
 
 export const descendant = (el: Element | Document, name: string): Element | null =>
   descendants(el, name)[0] ?? null;

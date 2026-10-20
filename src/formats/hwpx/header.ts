@@ -125,17 +125,22 @@ export function buildCharPr(doc: Document, base: string, id: number, p: CharProp
     if (on && !cur) ensureKid(el, name, NS.hh, 'hh', after(name));
     if (!on && cur) cur.remove();
   }
-  const ul = ensureKid(el, 'underline', NS.hh, 'hh', after('underline'));
-  if (p.underline) {
-    if (attr(ul, 'type', 'NONE') === 'NONE') ul.setAttribute('type', 'BOTTOM');
+  // 밑줄/취소선 요소는 원본에 없고 꺼져 있으면 만들지 않습니다.
+  if (p.underline || kid(el, 'underline')) {
+    const ul = ensureKid(el, 'underline', NS.hh, 'hh', after('underline'));
+    if (p.underline) {
+      if (attr(ul, 'type', 'NONE') === 'NONE') ul.setAttribute('type', 'BOTTOM');
+    } else ul.setAttribute('type', 'NONE');
     if (!ul.getAttribute('shape')) ul.setAttribute('shape', 'SOLID');
-  } else ul.setAttribute('type', 'NONE');
-  if (!ul.getAttribute('color')) ul.setAttribute('color', '#000000');
-  const so = ensureKid(el, 'strikeout', NS.hh, 'hh', after('strikeout'));
-  if (p.strike) {
-    if (['NONE', ''].includes(attr(so, 'shape', 'NONE'))) so.setAttribute('shape', 'SOLID');
-  } else so.setAttribute('shape', 'NONE');
-  if (!so.getAttribute('color')) so.setAttribute('color', '#000000');
+    if (!ul.getAttribute('color')) ul.setAttribute('color', '#000000');
+  }
+  if (p.strike || kid(el, 'strikeout')) {
+    const so = ensureKid(el, 'strikeout', NS.hh, 'hh', after('strikeout'));
+    if (p.strike) {
+      if (['NONE', ''].includes(attr(so, 'shape', 'NONE'))) so.setAttribute('shape', 'SOLID');
+    } else so.setAttribute('shape', 'NONE');
+    if (!so.getAttribute('color')) so.setAttribute('color', '#000000');
+  }
   return el;
 }
 
