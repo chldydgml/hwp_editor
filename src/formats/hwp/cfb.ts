@@ -1,5 +1,6 @@
 import CFB from 'cfb';
 import { inflateRaw, deflateRaw } from 'pako';
+import { buildCompoundFile } from './cfbWriter';
 
 export const HWP_SIGNATURE = 'HWP Document File';
 
@@ -16,14 +17,7 @@ export function readCompound(data: Uint8Array): Map<string, Uint8Array> {
   return out;
 }
 
-export function writeCompound(streams: Map<string, Uint8Array>): Uint8Array {
-  const cfb = CFB.utils.cfb_new();
-  // cfb_new 가 만드는 더미 스트림 제거
-  CFB.utils.cfb_del(cfb, '\u0001Sh33tJ5');
-  for (const [path, data] of streams) CFB.utils.cfb_add(cfb, '/' + path, data);
-  const out = CFB.write(cfb, { type: 'array', fileType: 'cfb' }) as unknown as ArrayLike<number>;
-  return Uint8Array.from(out);
-}
+export const writeCompound = (streams: Map<string, Uint8Array>): Uint8Array => buildCompoundFile(streams);
 
 export const inflate = (d: Uint8Array): Uint8Array => inflateRaw(d);
 export const deflate = (d: Uint8Array): Uint8Array => deflateRaw(d, { level: 6 });
