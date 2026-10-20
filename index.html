@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HWP 웹 편집기</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="menubar">
+        <span class="brand">HWP 웹 편집기</span>
+        <button data-cmd="new" title="새 문서 (Alt+N)">새 문서</button>
+        <button data-cmd="open" title="열기 (Ctrl+O)">열기</button>
+        <button data-cmd="save-hwpx" title="HWPX로 저장 (Ctrl+S)">HWPX 저장</button>
+        <button data-cmd="save-hwp" title="HWP로 저장 (Ctrl+Shift+S)">HWP 저장</button>
+        <span class="filename" id="filename">새 문서</span>
+        <input type="file" id="file-input" accept=".hwp,.hwpx" hidden />
+      </header>
+      <nav class="toolbar" id="toolbar">
+        <button data-cmd="undo" title="되돌리기 (Ctrl+Z)">↶</button>
+        <button data-cmd="redo" title="다시 실행 (Ctrl+Y)">↷</button>
+        <span class="sep"></span>
+        <select id="font-family" title="글꼴"></select>
+        <select id="font-size" title="글자 크기 (pt)"></select>
+        <span class="sep"></span>
+        <button data-cmd="bold" title="진하게 (Ctrl+B)"><b>가</b></button>
+        <button data-cmd="italic" title="기울임 (Ctrl+I)"><i>가</i></button>
+        <button data-cmd="underline" title="밑줄 (Ctrl+U)"><u>가</u></button>
+        <button data-cmd="strike" title="취소선"><s>가</s></button>
+        <label class="color" title="글자 색"><span>가</span><input type="color" id="text-color" value="#000000" /></label>
+        <span class="sep"></span>
+        <button data-cmd="align-justify" title="양쪽 정렬">≣</button>
+        <button data-cmd="align-left" title="왼쪽 정렬">⫷</button>
+        <button data-cmd="align-center" title="가운데 정렬">≡</button>
+        <button data-cmd="align-right" title="오른쪽 정렬">⫸</button>
+        <span class="sep"></span>
+        <select id="line-spacing" title="줄 간격 (%)"></select>
+      </nav>
+      <main class="workspace" id="workspace"></main>
+      <footer class="statusbar" id="statusbar">준비</footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

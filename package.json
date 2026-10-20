@@ -1,0 +1,27 @@
+{
+  "name": "hwp-editor",
+  "private": true,
+  "version": "0.1.0",
+  "description": "웹 기반 한글(HWP/HWPX) 문서 편집기",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cfb": "^1.2.2",
+    "jszip": "^3.10.2",
+    "pako": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
+  }
+}

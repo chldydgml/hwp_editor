@@ -1,0 +1,10 @@
+:root {
+  --chrome-bg: #f3f4f6;
+  --chrome-border: #d1d5db;
+  --accent: #2563eb;
+  --desk: #e5e7eb;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13px; color: #111; }
+#app { display: flex; flex-direction: column; height: 100%; }
