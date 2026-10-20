@@ -1,0 +1,7 @@
+HWP 웹 편집기
+
+이 프로젝트의 빈 문서 템플릿(src/templates/blank.hwpx, blank.hwp)은
+python-hwpx (https://github.com/airmang/python-hwpx, Copyright 2025-2026 airmang)의
+Skeleton.hwpx를 바탕으로 하며 Apache License 2.0을 따릅니다.
+
+본 제품은 한글과컴퓨터의 HWP 문서 파일(.hwp) 공개 문서를 참고하여 개발하였습니다.
