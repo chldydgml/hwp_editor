@@ -1,13 +1,13 @@
 // 실제 브라우저(Chromium)에서 편집기를 조작해 열기·편집·저장 흐름을 확인합니다.
-// 사용법: npm run build && node e2e/smoke.mjs [출력 폴더]
+// 사용법: npm run e2e [-- 출력 폴더]
 import { chromium } from 'playwright';
-import { createServer } from 'vite';
+import { preview } from 'vite';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const outDir = resolve(process.argv[2] ?? 'e2e-out');
-const server = await createServer({ server: { port: 5199 }, logLevel: 'error' });
-await server.listen();
+// 개발 서버는 첫 실행 때 의존성 최적화로 페이지를 다시 읽으므로 빌드 결과(preview)로 시험합니다.
+const server = await preview({ preview: { port: 5199 }, logLevel: 'error' });
 // CHROMIUM_PATH 로 브라우저 실행 파일을 지정할 수 있습니다.
 const exe = [process.env.CHROMIUM_PATH, '/opt/pw-browsers/chromium'].find((p) => p && existsSync(p));
 const browser = await chromium.launch(exe ? { executablePath: exe } : {});
