@@ -115,6 +115,8 @@ export interface OpaqueControl {
   preview?: string;
   /** HWPX: hp:run 의 자식 요소 XML */
   hwpx?: string;
+  /** HWPX: hp:t 안에 들어가는 요소(형광펜 시작/끝 등)인지 */
+  hwpxInText?: boolean;
   /** HWP: 문단 텍스트 속 8 WCHAR 컨트롤 문자 */
   hwpChars?: Uint16Array;
   /** HWP: 해당 컨트롤의 레코드 트리 (레벨은 문단 기준 상대값) */
